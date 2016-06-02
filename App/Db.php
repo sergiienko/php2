@@ -2,21 +2,25 @@
 
 namespace App;
 
-class Db {
+class Db
+{
 
     protected $dbh;
     
-    public function __construct() {
+    public function __construct()
+    {
         $this->dbh = new \PDO('mysql:host=127.0.0.1;dbname=php2;', 'php2', 'php2');
     }
 
-    public function execute($sql) {
+    public function execute($sql)
+    {
         $sth = $this->dbh->prepare($sql);
         $res = $sth->execute();
         return $res;
     }
 
-    public function query($sql, $class='\stdClass') {
+    public function query($sql, $class='\stdClass')
+    {
         $sth = $this->dbh->prepare($sql);
         $res = $sth->execute();
         if(false !== $res) {
