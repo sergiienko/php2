@@ -3,8 +3,16 @@
 namespace App;
 
 class Db {
+
+    protected $dbh;
     
     public function __construct() {
-        echo 'Hello, DB!';
+        $this->dbh = new \PDO('mysql:host=127.0.0.1;dbname=php2;', 'php2', 'php2');
+    }
+
+    public function execute($sql) {
+        $sth = $this->dbh->prepare($sql);
+        $res = $sth->execute();
+        return $res;
     }
 }
