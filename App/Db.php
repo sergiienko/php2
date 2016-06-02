@@ -16,11 +16,11 @@ class Db {
         return $res;
     }
 
-    public function query($sql) {
+    public function query($sql, $class='\stdClass') {
         $sth = $this->dbh->prepare($sql);
         $res = $sth->execute();
         if(false !== $res) {
-            return $sth->fetchAll();
+            return $sth->fetchAll(\PDO::FETCH_CLASS, $class);
         }
         return [];
     }
