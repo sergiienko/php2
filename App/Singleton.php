@@ -3,7 +3,7 @@
 namespace App;
 
 
-class Singleton
+abstract class Singleton
 {
     protected static $instance;
 
@@ -13,10 +13,10 @@ class Singleton
 
     public static function instance()
     {
-        if (null === self::$instance) {
-            self::$instance = new self;
+        if (null === static::$instance) {
+            static::$instance = new static;
         }
-        return self::$instance;
+        return static::$instance;
     }
 
 }
