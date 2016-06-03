@@ -1,14 +1,17 @@
 <?php
 
-use App\Models\User;
+use App\Models\News;
 
 require __DIR__ . '/autoload.php';
 
-$users = User::findAll();
+if (isset($_GET['id'])) {
+    $article = News::findById($_GET['id']);
+    if (!empty($article)) {
+        include __DIR__ . '/App/Views/article.html';
+    }
+} else {
+    $news = News::getRecent();
+    include __DIR__ . '/App/Views/news.html';
+}
 
-var_dump($users);
 
-$user = new User();
-$user->name = 'John';
-$user->email = 'john@snow.com';
-$user->insert();

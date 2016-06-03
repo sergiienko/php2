@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News</title>
+</head>
+<body>
+
+    <ul>
+        <?php foreach($news as $n): ?>
+            <li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?id=<?php echo $n->id; ?>"><?php echo $n->title; ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+
+</body>
+</html>
