@@ -19,7 +19,21 @@ abstract class Model
             static::class
         );
     }
-    
+
+    public static function findById($id) {
+        $db = Db::instance();
+        $res = $db->query(
+            'SELECT * FROM ' . static::TABLE . ' WHERE id = :id',
+            [':id' => $id],
+            static::class
+        );
+        
+        if (!empty($res)) {
+            return $res;
+        }
+        return false;
+    }
+
     public function isNew()
     {
         return empty($this->id);
