@@ -10,7 +10,12 @@ class Db
     
     protected function __construct()
     {
-        $this->dbh = new \PDO('mysql:host=127.0.0.1;dbname=php2;', 'php2', 'php2');
+        $config = Config::instance();
+        $this->dbh = new \PDO(
+            'mysql:host=' . $config->data['db']['host'] . ';dbname=' . $config->data['db']['name'] . ';', 
+            $config->data['db']['username'],
+            $config->data['db']['password'] 
+        );
     }
 
     public function execute($sql, $params = [])
@@ -28,5 +33,9 @@ class Db
             return $sth->fetchAll(\PDO::FETCH_CLASS, $class);
         }
         return [];
+    }
+
+    public function lastInsertedId() {
+        return $this->dbh->lastInsertId();
     }
 }

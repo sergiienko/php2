@@ -11,6 +11,9 @@ trait Singleton
     {
     }
 
+    /**
+     * @return static 
+     */
     public static function instance()
     {
         if (null === static::$instance) {

@@ -61,6 +61,55 @@ abstract class Model
 
         $db = Db::instance();
         $db->execute($sql, $values);
+        
+        $this->id = $db->lastInsertedId();
+    }
+
+    public function update()
+    {
+        if ($this->isNew()) {
+            return;
+        }
+
+        $columns = [];
+        $values = [];
+
+        foreach ($this as $k => $v) {
+            if ('id' == $k) {
+                continue;
+            }
+            $columns[] = $k . '=:' . $k;
+            $values[':' . $k] = $v;
+        }
+        
+        $sql = 'UPDATE ' . static::TABLE . ' SET ' . implode(', ', $columns) . ' WHERE id=:id';
+
+        $values[':id'] = $this->id;
+        
+        $db = Db::instance();
+        $db->execute($sql, $values);
+    }
+    
+    public function save()
+    {
+        if ($this->isNew()) {
+            $this->insert();
+        } else {
+            $this->update();
+        }
+    }
+    
+    public function delete()
+    {
+        if ($this->isNew()) {
+            return;
+        }
+        
+        $sql = 'DELETE FROM ' . static::TABLE . ' WHERE id=:id';
+
+        $db = Db::instance();
+        $db->execute($sql, [':id' => $this->id]);
+        
     }
         
 }
