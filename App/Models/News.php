@@ -15,7 +15,7 @@ class News
     public static function getRecent() {
         $db = Db::instance();
         return $db->query(
-            'SELECT * FROM '. self::TABLE . ' ORDER BY id DESC LIMIT 3',
+            'SELECT * FROM '. self::TABLE . ' ORDER BY id DESC LIMIT 5',
             [],
             self::class
         );

@@ -13,7 +13,26 @@ $user->email = 'AlisaHarrison@inbound.plus';
 $user->name = 'Alisa Harrison';
 $user->save();
 
-var_dump($user);
+//var_dump($user);
+
+if (isset($_POST['action'])) {
+    $article = new News();
+    if (isset($_POST['article']['id'])) {
+        $article->id = $_POST['article']['id'];
+    }
+    switch($_POST['action']) {
+        case 'add':
+        case 'edit':
+            $article->title = $_POST['article']['title'];
+            $article->text = $_POST['article']['text'];
+            $article->save();
+            break;
+        
+        case 'delete':
+            $article->delete();
+            break;
+    }
+}
 
 if (isset($_GET['id'])) {
     $article = News::findById($_GET['id']);

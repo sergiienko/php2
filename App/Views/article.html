@@ -5,8 +5,25 @@
     <title><?php echo $article->title; ?></title>
 </head>
 <body>
-    <h1><?php echo $article->title; ?></h1>
-    <p><?php echo $article->text; ?></p>
+    <form method="post">
+        <p>
+            <input type="text" name="article[title]" value="<?php echo $article->title; ?>">
+        </p>
+        <p>
+            <textarea name="article[text]" cols="50" rows="10"><?php echo $article->text; ?></textarea>
+        </p>
+        <p>
+            <input type="submit" value="Save">
+        </p>
+        <input type="hidden" name="article[id]" value="<?php echo $article->id; ?>">
+        <input type="hidden" name="action" value="edit">
+    </form>
+
+    <form method="post">
+        <input type="submit" value="Delete">
+        <input type="hidden" name="article[id]" value="<?php echo $article->id; ?>">
+        <input type="hidden" name="action" value="delete">
+    </form>
 
 </body>
 </html>
