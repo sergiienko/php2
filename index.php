@@ -11,6 +11,8 @@ $view = new \App\View;
 $user = new \App\Models\User();
 $user->getEmail();
 
+$view->title = 'Title';
+$view->description = 'About news';
 $view->users = \App\Models\User::findAll();
 
 $view->display(__DIR__ . '/App/templates/index.php');
