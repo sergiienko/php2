@@ -4,28 +4,7 @@ namespace App;
 
 class View implements \Countable
 {
-    protected $data = [];
-
-    /**
-     * Runs when writing data to inaccessible properties.
-     *
-     * @param $name
-     * @param $value
-     */
-    public function __set($name, $value)
-    {
-        $this->data[$name] = $value;
-    }
-
-    public function __get($name)
-    {
-        return $this->data[$name];
-    }
-
-    public function __isset($name)
-    {
-        return isset($this->data[$name]);
-    }
+    use Accessor;
 
     public function render($template)
     {
@@ -44,7 +23,10 @@ class View implements \Countable
 
     public function display($template)
     {
-        echo $this->render($template);
+        foreach ($this->data as $property => $value) {
+            $$property = $value;
+        }
+        echo str_replace('{{ content }}', $this->render($template), $this->render(__DIR__ . '/templates/layout.php'));
     }
 
     /**

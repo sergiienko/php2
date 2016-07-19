@@ -6,25 +6,6 @@ define('APP_ROOT', __DIR__);
 
 require APP_ROOT . '/autoload.php';
 
-$view = new \App\View;
-
-$user = new \App\Models\User();
-$user->getEmail();
-
-$view->title = 'Title';
-$view->description = 'About news';
-$view->users = \App\Models\User::findAll();
-
-$view->display(__DIR__ . '/App/templates/index.php');
-
-/*$user = new \App\Models\User();
-$user->id = 8;
-$user->email = 'AlisaHarrison@inbound.plus';
-$user->name = 'Alisa Harrison';
-$user->save();
-
-//var_dump($user);
-
 if (isset($_POST['action'])) {
     $article = new News();
     if (isset($_POST['article']['id'])) {
@@ -44,14 +25,14 @@ if (isset($_POST['action'])) {
     }
 }
 
+$view = new \App\View;
+
 if (isset($_GET['id'])) {
-    $article = News::findById($_GET['id']);
-    if (!empty($article)) {
-        include __DIR__ . '/App/Views/article.html';
-    }
+    $view->article = News::findById($_GET['id']);
+    $view->display(__DIR__ . '/App/templates/article.php');
 } else {
-    $news = News::getRecent();
-    include __DIR__ . '/App/Views/news.html';
-}*/
+    $view->news = News::getRecent();
+    $view->display(__DIR__ . '/App/templates/news.php');
+}
 
 
