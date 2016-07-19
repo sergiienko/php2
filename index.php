@@ -29,10 +29,10 @@ $view = new \App\View;
 
 if (isset($_GET['id'])) {
     $view->article = News::findById($_GET['id']);
-    $view->display(__DIR__ . '/App/templates/article.php');
+    $view->display('article');
 } else {
     $view->news = News::getRecent();
-    $view->display(__DIR__ . '/App/templates/news.php');
+    $view->display('news');
 }
 
 

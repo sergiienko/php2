@@ -6,27 +6,29 @@ class View implements \Countable
 {
     use Accessor;
 
+    protected $path = APP_ROOT . '/App/templates';
+    protected $extension = 'php';
+
     public function render($template)
     {
-        ob_start();
-
         foreach ($this->data as $property => $value) {
             $$property = $value;
         }
 
-        include $template;
-        $content = ob_get_contents();
-        ob_end_clean();
+        ob_start();
+        include $this->path . '/' . 'layout' . '.' . $this->extension;
+        $layout = ob_get_clean();
 
-        return $content;
+        ob_start();
+        include $this->path . '/' . $template . '.' . $this->extension;
+        $content = ob_get_clean();
+
+        return str_replace('{{ content }}', $content, $layout);
     }
 
     public function display($template)
     {
-        foreach ($this->data as $property => $value) {
-            $$property = $value;
-        }
-        echo str_replace('{{ content }}', $this->render($template), $this->render(__DIR__ . '/templates/layout.php'));
+        echo $this->render($template);
     }
 
     /**
