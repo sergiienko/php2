@@ -6,8 +6,16 @@ define('APP_ROOT', __DIR__);
 
 require APP_ROOT . '/autoload.php';
 
+$view = new \App\View;
 
 $user = new \App\Models\User();
+$user->getEmail();
+
+$view->users = \App\Models\User::findAll();
+
+$view->display(__DIR__ . '/App/templates/index.php');
+
+/*$user = new \App\Models\User();
 $user->id = 8;
 $user->email = 'AlisaHarrison@inbound.plus';
 $user->name = 'Alisa Harrison';
@@ -42,6 +50,6 @@ if (isset($_GET['id'])) {
 } else {
     $news = News::getRecent();
     include __DIR__ . '/App/Views/news.html';
-}
+}*/
 
 

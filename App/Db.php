@@ -25,7 +25,7 @@ class Db
         return $res;
     }
 
-    public function query($sql, $params = [], $class='\stdClass')
+    public function query($sql, $class='\stdClass', $params = [])
     {
         $sth = $this->dbh->prepare($sql);
         $res = $sth->execute($params);
