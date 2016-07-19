@@ -4,6 +4,7 @@ use App\Models\News;
 
 define('APP_ROOT', __DIR__);
 
+
 require APP_ROOT . '/autoload.php';
 
 if (isset($_POST['action'])) {
