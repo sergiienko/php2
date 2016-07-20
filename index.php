@@ -6,6 +6,7 @@ define('APP_ROOT', __DIR__);
 
 
 require APP_ROOT . '/autoload.php';
+require APP_ROOT . '/App/helpers.php';
 
 if (isset($_POST['action'])) {
     $article = new News();
@@ -35,5 +36,8 @@ if (isset($_GET['id'])) {
     $view->news = News::getRecent();
     $view->display('news');
 }
+
+$user = new \App\Models\User();
+$user->getEmail();
 
 

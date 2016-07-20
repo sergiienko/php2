@@ -6,9 +6,23 @@ class View implements \Countable
 {
     use Accessor;
 
+    /**
+     * @var string Path to the directory where templates are stored.
+     */
     protected $path = APP_ROOT . '/App/templates';
+
+    /**
+     * @var string Extension of a template file.
+     */
     protected $extension = 'php';
 
+    /**
+     * Render a template.
+     *
+     * @param string $template
+     *
+     * @return string
+     */
     public function render($template)
     {
         foreach ($this->data as $property => $value) {
@@ -26,6 +40,13 @@ class View implements \Countable
         return str_replace('{{ content }}', $content, $layout);
     }
 
+    /**
+     * Display a template.
+     *
+     * @param $template
+     *
+     * @return void
+     */
     public function display($template)
     {
         echo $this->render($template);
