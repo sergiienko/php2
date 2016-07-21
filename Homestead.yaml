@@ -14,13 +14,17 @@ keys:
 folders:
     - map: "/home/engineer/code/php2"
       to: "/home/vagrant/php2"
+    - map: "/home/engineer/code/phpmyadmin"
+      to: "/home/vagrant/phpmyadmin" 
 
 sites:
-    - map: php2.loc
+    - map: php2.dev
       to: "/home/vagrant/php2"
+    - map: pma.app
+      to: "/home/vagrant/phpmyadmin"
 
 databases:
-    - homestead
+    - php2
 
 # blackfire:
 #     - id: foo
