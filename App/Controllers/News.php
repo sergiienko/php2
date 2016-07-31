@@ -2,13 +2,11 @@
 
 namespace App\Controllers;
 
-use App\Models\News;
-
-class NewsController extends BaseController
+class News extends Base
 {
     protected function actionIndex()
     {
-        $this->view->news = News::findAll();
+        $this->view->news = \App\Models\News::findAll();
         $this->view->display('news');
     }
 
@@ -16,7 +14,7 @@ class NewsController extends BaseController
     {
         $id = (int) $_GET['id'];
 
-        $this->view->article = News::findById($id);
+        $this->view->article = \App\Models\News::findById($id);
 
         $this->view->display('article');
     }

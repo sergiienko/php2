@@ -2,21 +2,20 @@
 
 namespace App\Controllers\Admin;
 
-use App\Models\News;
-use App\Controllers\BaseController;
+use App\Controllers\Base;
 
-class NewsController extends BaseController
+class News extends Base
 {
     protected function actionIndex()
     {
-        $this->view->news = News::findAll();
+        $this->view->news = \App\Models\News::findAll();
         $this->view->display('admin.news');
     }
 
     protected function actionEdit()
     {
     	if (isset($_POST['article'])) {
-		    $article = new News();
+		    $article = new \App\Models\News();
 	        $article->id = $_POST['article']['id'];
 	        $article->title = $_POST['article']['title'];
             $article->text = $_POST['article']['text'];
@@ -25,7 +24,7 @@ class NewsController extends BaseController
 
         $id = (int) $_GET['id'];
 
-        $this->view->article = News::findById($id);
+        $this->view->article = \App\Models\News::findById($id);
 
         $this->view->display('admin.article');
     }
@@ -33,7 +32,7 @@ class NewsController extends BaseController
     protected function actionAdd()
     {
     	if (isset($_POST['article'])) {
-		    $article = new News();
+		    $article = new \App\Models\News();
 	    	$article->title = $_POST['article']['title'];
             $article->text = $_POST['article']['text'];
             $article->save();
@@ -48,7 +47,7 @@ class NewsController extends BaseController
     protected function actionDelete()
     {
     	if (isset($_POST['article'])) {
-		    $article = new News();
+		    $article = new \App\Models\News();
 	        $article->id = $_POST['article']['id'];
             $article->delete();
 
