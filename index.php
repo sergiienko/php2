@@ -7,36 +7,17 @@ define('APP_ROOT', __DIR__);
 require APP_ROOT . '/vendor/autoload.php';
 require APP_ROOT . '/App/helpers.php';
 
-if (isset($_POST['action'])) {
-    $article = new News();
-    if (isset($_POST['article']['id'])) {
-        $article->id = $_POST['article']['id'];
-    }
-    switch($_POST['action']) {
-        case 'add':
-        case 'edit':
-            $article->title = $_POST['article']['title'];
-            $article->text = $_POST['article']['text'];
-            $article->save();
-            break;
-        
-        case 'delete':
-            $article->delete();
-            break;
-    }
+$controller = '\\App\\Controllers\\NewsController';
+$action = 'Index';
+
+preg_match('/^(?<controller>(\/admin)?\/\w+)(\/(?<action>\w+))?/', $_SERVER['REQUEST_URI'], $request);
+
+if (isset($request['controller'])) {
+    $controller = '\\App\\Controllers' . str_replace('/', '\\', ucwords($request['controller'], '/')) . 'Controller';
 }
 
-$view = new \App\View;
-
-if (isset($_GET['id'])) {
-    $view->article = News::findById($_GET['id']);
-    $view->display('article');
-} else {
-    $view->news = News::getRecent();
-    $view->display('news');
+if (isset($request['action'])) {
+    $action = ucfirst($request['action']);
 }
 
-$user = new \App\Models\User();
-$user->getEmail();
-
-
+(new $controller)->action($action);

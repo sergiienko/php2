@@ -2,25 +2,10 @@
 
 namespace App\Controllers;
 
-use App\View;
 use App\Models\News;
 
-class NewsController
+class NewsController extends BaseController
 {
-    protected $view;
-
-    public function __construct()
-    {
-        $this->view = new View();
-    }
-
-    public function action($name)
-    {
-        $methodName = 'action' . $name;
-
-        return $this->$methodName();
-    }
-
     protected function actionIndex()
     {
         $this->view->news = News::findAll();
